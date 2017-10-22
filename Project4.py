@@ -11,19 +11,20 @@ scores = [10, 5, 20, 20, 4, 5, 2, 25, 1].
 В данном случае ответ: 2.'''
 
 
-def adds(*args):
+def adds():
     scores = input("Введите список результатов:").split(' ')
     print('Список результатов \n', scores)
-    s = 0
-    p = scores[0]
+    count = 0
+    rec = scores[0]
     for ind, el in enumerate(scores):
-        if int(el) > int(p):
-            p = el
-            s += 1
-    return 'Количество рекордов:', s
+        if int(el) > int(rec):
+            rec = el
+            count += 1
+    return 'Количество рекордов:', count
 
 
 print(adds())
+
 
 
 
