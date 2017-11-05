@@ -2,22 +2,24 @@ import re
 
 
 def result():
-
     try:
         with open('text', 'r') as my_file:
-            my_string = my_file.read()
+            my_string = my_file.readlines()
+            lines = words = letters = 0
     except FileNotFoundError:
-        print('Тоби пизда, тика с села')
+        print('Потерял файл, тоби п**да, тикай с села')
     else:
-            strings = re.sub(r'\W', '', my_string)
-            letters = str(len(strings)) + ' letters\n'
-            words = str(len(my_string.split())) + ' words\n'
-            lines = str(len(my_string.splitlines())) + ' lines\n'
-            with open('result', 'w') as my_result:
-                my_result.write(letters)
-                my_result.write(words)
-                my_result.write(lines)
-                my_result.close()
+        for i in my_string:
+            lines += 1
+            for j in i.split():
+                words += 1
+            for j in re.sub(r'\W', '', i):
+                letters += 1
+        with open('result', 'w') as my_result:
+            my_result.write(str(lines)+' lines\n')
+            my_result.write(str(words)+' words\n')
+            my_result.write(str(letters)+' letters\n')
+            my_result.close()
 
 
 result()
