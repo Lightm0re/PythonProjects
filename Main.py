@@ -5,11 +5,14 @@
 """
 
 import json
-import codecs
+import os
+
+print('Приветствую!')
 count = str(0)
+print('В данной директории находятся файлы', os.listdir(path="."))
 while count != 1:
     try:
-        with open(input('введите имя каталога\n '), 'r', encoding='utf-8') as data_file:
+        with open(input('введите имя каталога\n '), 'r+', encoding='utf-8') as data_file:
             data = json.load(data_file)
     except FileNotFoundError:
         print('Вы ввели несуществующий каталог\n')
@@ -25,10 +28,10 @@ def show_all_books():
 
 
 def open_catalog():
-    with open(input('введите имя каталога\n '), 'r', encoding='utf-8') as data_file:
-        data = json.load(data_file)
+    with open(input('введите имя каталога\n '), 'r+', encoding='utf-8') as dataFile:
+        data1 = json.load(dataFile)
         a = input('введите параметр поиска:\n ')
-        for i in data:
+        for i in data1:
             print(i.get(a))
 
 
@@ -47,15 +50,20 @@ def search():
 
 
 def write_to_book(author, il, name, year):
-    jf_file = json.load(data)
-    with open(data, 'w',encoding='utf-8') as jf:
-        jf_target = list(jf_file)
-        print(jf_target)
+    with open(input('введите имя каталога, куда добавить книгу\n '), 'r+', encoding='utf-8') as jfr:
+        jf_file = json.load(jfr)
         user_info = {'author': author, 'id': il, 'name': name, 'year': year}
-        jf_target.append(user_info)
-        json.dump(jf_file, jf, indent=4)
+        jf_file.append(user_info)
+        print(jf_file)
+    with open(input('введите имя каталога, подтвердив операцию\n '), 'r+', encoding='utf-8') as jfr:
+        jfr.write(json.dumps(jf_file))
+        jfr.close()
 
 
-#show_all_books()
-#search()
-write_to_book('1','2','3','4')
+
+
+
+show_all_books()
+search()
+write_to_book(input('Введите автора: '), input('Введите идентификатор'),
+              input('Введите название'), input('Введите дату'))
